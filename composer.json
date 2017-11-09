@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/apiclient": "^2.0",
+        "linecorp/line-bot-sdk": "^2.3"
+    }
+}
