@@ -9,6 +9,7 @@ class CalendarBot {
 	private $_service;
 
 	public function __construct($uri = "", $state = "") {
+		date_default_timezone_set('Asia/Tokyo');
 		$this->_conn = new DBConnection();
 		$this->_client = new Google_Client();
 		$this->_client->setApplicationName(APPLICATION_NAME);
@@ -60,13 +61,14 @@ class CalendarBot {
 		} else {
   			print "Upcoming events:\n";
 			foreach ($results->getItems() as $event) {
-				$start = $event->start->dateTime;
-				if (empty($start)) {
-					$start = $event->start->date;
-				}
+				$start = (isset($event->start->dateTime) && !empty($event->start->dateTime)) ? $event->start->dateTime : $event->start->date;
+				if (empty($start)) continue;
 				if (strtotime($start) > $currentTime + REMINDER_BEFORE_TIME || strtotime($start) <= $currentTime) continue;
-				printf("%s (%s)\n", $event->getSummary(), $start);
-				$response[] = $event->getSummary() . " (" . $start . ")";
+				//printf("%s (%s)\n", $event->getSummary(), $start);
+				$time = date('H:i', strtotime($start));
+				$summary = $event->getSummary();
+				$location = $event->getLocation();
+				$response[] = $time . ' ' . $summary . PHP_EOL . $location;
 			}
 		}
 		return $response;
