@@ -17,3 +17,5 @@ foreach ($results as $result) {
 	}
 	unset($calendar_bot);
 }
+
+unset($reminder_bot);

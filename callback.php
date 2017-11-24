@@ -15,8 +15,12 @@ switch ($events->{'type'}) {
 		break;
 
 	case 'unfollow':
+		$userId = $events->{'source'}->{'userId'};
+		$reminder->deleteUser($userId);
 		break;
 
 	default:
 		break;
 }
+
+unset($reminder);
