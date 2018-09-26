@@ -1,2 +1,2 @@
 # google-calendar-line-reminder
-Google CalendarのイベントをLineでリマインダーする
+Google CalendarのイベントをLineでリマインダーするシステム
